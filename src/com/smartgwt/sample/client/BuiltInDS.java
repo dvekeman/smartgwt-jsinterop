@@ -58,6 +58,7 @@ public class BuiltInDS implements EntryPoint {
 		Registry.register("MainListGrid", grid);
 
 		initializeWorld();
+		
 		// --------------------------------------------------------------------------------------------------------- //
 		// <- Remove all between these lines
 		// --------------------------------------------------------------------------------------------------------- //

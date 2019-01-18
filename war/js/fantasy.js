@@ -8,6 +8,7 @@ function initializeWorld() {
   fantasy.FantasyWorld.prototype.addCity = function (cityName) {
     this.cities.add(cityName);
   };
+  addCitiesToGrid();
 }
 
 // Create the cities DataSource and bind to the data in cities.data.js
