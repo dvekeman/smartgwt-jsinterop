@@ -1,6 +1,10 @@
 package com.smartgwt.sample.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.core.KeyIdentifier;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
@@ -25,9 +29,14 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VStack;
 import com.smartgwt.client.widgets.viewer.DetailViewer;
 
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
+@JsType
 public class BuiltInDS implements EntryPoint {
 	private ListGrid boundList;
 	private DynamicForm boundForm;
@@ -45,7 +54,10 @@ public class BuiltInDS implements EntryPoint {
 		// --------------------------------------------------------------------------------------------------------- //
 		// Remove all between these lines ->
 		// --------------------------------------------------------------------------------------------------------- //
+		Registry.register("BuiltInDS", this);
+		Registry.register("MainListGrid", grid);
 
+		initializeWorld();
 		// --------------------------------------------------------------------------------------------------------- //
 		// <- Remove all between these lines
 		// --------------------------------------------------------------------------------------------------------- //
@@ -54,7 +66,41 @@ public class BuiltInDS implements EntryPoint {
 	// --------------------------------------------------------------------------------------------------------- //
 	// Remove all between these lines ->
 	// --------------------------------------------------------------------------------------------------------- //
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// JavaScript native functions
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@JsMethod(namespace = JsPackage.GLOBAL)
+	public static native void initializeWorld();
+
+
+	@JsType(namespace = "j2js")
+	public static class Registry {
+		private static Map<String, Object> shared = new HashMap<>();
+
+		public static void register(String name, Object o) {
+			shared.put(name, o);
+		}
+
+		public static Object lookup(String name) {
+			return shared.get(name);
+		}
+	}
+
+
+	public void addJSData(JavaScriptObject jsObj){
+		// conceptually:
+		// this.grid.addData(new DSRecord(jsObj));
+
+		// in reality:
+		DSRecord dsRecord = new DSRecord(jsObj);
+		String name = dsRecord.getDsName();
+		String title = dsRecord.getDsTitle();
+
+		// Workaround: rewrap the DSRecord
+		this.grid.addData(new DSRecord(title, name));
+	}	
+	
 	// --------------------------------------------------------------------------------------------------------- //
 	// <- Remove all between these lines
 	// --------------------------------------------------------------------------------------------------------- //
