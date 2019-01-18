@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+    
+
+    <!-- Note: The servlets/filters referenced here are documented in the SDK javadoc -->
+
+
+	<!-- Init: initializes SmartClient framework.  This listener should be the first one listed
+         in web.xml because part of its function is to make JDBC DataSources available via JNDI
+         to Spring and other Listeners.  See the client-side documentation topic "serverInit"
+         for a discussion of this.  -->
+	<listener>
+		<listener-class>com.isomorphic.base.InitListener</listener-class>
+	</listener>
+    
+    <!-- Dynamic Compression -->
+    <filter>
+        <filter-name>CompressionFilter</filter-name>
+        <filter-class>com.isomorphic.servlet.CompressionFilter</filter-class>
+    </filter>
+    <!-- CompressionFilter for dynamic compression -->
+    <filter-mapping>
+        <filter-name>CompressionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- The IDACall servlet handles all Built-in DataSource operations -->
+    <servlet>
+        <servlet-name>IDACall</servlet-name>
+        <servlet-class>com.isomorphic.servlet.IDACall</servlet-class>
+    </servlet>
+
+    <!-- The RESTHandler servlet is like IDACall, but for REST requests -->
+    <servlet>
+        <servlet-name>RESTHandler</servlet-name>
+        <servlet-class>com.isomorphic.servlet.RESTHandler</servlet-class>
+    </servlet>
+
+    <!-- The DataSourceLoader servlet returns Javascript representations of the dataSources whose
+         ID's are passed to it - it is an alternative to using the <loadDS> JSP tag -->
+    <servlet>
+        <servlet-name>DataSourceLoader</servlet-name>
+        <servlet-class>com.isomorphic.servlet.DataSourceLoader</servlet-class>
+    </servlet>
+
+    <!-- The projectLoader servlet loads project definitions in javascript notation -->
+    <servlet>
+        <servlet-name>projectLoader</servlet-name>
+        <servlet-class>com.isomorphic.servlet.ProjectLoaderServlet</servlet-class>
+    </servlet>
+
+    <!-- The screenLoader servlet loads screen definitions in javascript notation -->
+    <servlet>
+        <servlet-name>screenLoader</servlet-name>
+        <servlet-class>com.isomorphic.servlet.ScreenLoaderServlet</servlet-class>
+    </servlet>
+
+    <!-- The FileDownload servlet downloads static files, like a webserver -->
+    <servlet>
+        <servlet-name>FileDownload</servlet-name>
+        <servlet-class>com.isomorphic.servlet.FileDownload</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>HttpProxy</servlet-name>
+        <servlet-class>com.isomorphic.servlet.HttpProxyServlet</servlet-class>
+    </servlet>
+
+    <!--  Messaging servlet for realtime messaging subsystem -->
+	<servlet>
+        <servlet-name>MessagingServlet</servlet-name>
+        <servlet-class>com.isomorphic.messaging.MessagingServlet</servlet-class>
+    </servlet>
+
+    <!-- The PreCache servlet initializes when the servlet engine starts up and pre-loads 
+         data need for all client requests.  This is optional, and improves performance
+         of the first few page requests.  PreCache cannot be invoked by a browser, because
+         there is no "servlet-mapping" defined for it. -->
+
+    <!-- PreCache is disabled by default because of an issue when debugging
+         the project for the first time. However, it can be safely enabled
+         when compiling with the GWT compiler prior to deployment. See
+         the README.txt for more information. -->
+
+    <!--
+    <servlet>
+        <servlet-name>PreCache</servlet-name>
+        <servlet-class>com.isomorphic.servlet.PreCache</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    -->
+
+    <!-- RPCManager uses this URL by default for Built-in DataSource operations -->
+    <servlet-mapping>
+        <servlet-name>IDACall</servlet-name>
+        <url-pattern>/builtinds/sc/IDACall/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RESTHandler</servlet-name>
+        <url-pattern>/builtinds/sc/RESTHandler/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- DataSourceLoader requests -->
+    <servlet-mapping>
+        <servlet-name>DataSourceLoader</servlet-name>
+        <url-pattern>/builtinds/sc/DataSourceLoader</url-pattern>
+    </servlet-mapping>
+
+    <!-- The projectLoader servlet loads project definitions in javascript notation -->
+    <servlet-mapping>
+        <servlet-name>projectLoader</servlet-name>
+        <url-pattern>/builtinds/sc/projectLoader</url-pattern>
+    </servlet-mapping>
+
+    <!-- The screenLoader servlet loads screen definitions in javascript notation -->
+    <servlet-mapping>
+        <servlet-name>screenLoader</servlet-name>
+        <url-pattern>/builtinds/sc/screenLoader</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>HttpProxy</servlet-name>
+        <url-pattern>/builtinds/sc/HttpProxy/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Use FileDownload servlet to download all static content that's part of the skin, such as
+         image files, so we can set Expires headers and other cache control directives.  In a
+         production deployment, you'd want to use a webserver such as Apache to do this.  
+    -->
+    <servlet-mapping>
+      <servlet-name>FileDownload</servlet-name>
+      <url-pattern>/builtinds/sc/skins/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- serve ISC modules compressed, with expires headers -->
+    <servlet-mapping>
+        <servlet-name>FileDownload</servlet-name>
+        <url-pattern>/builtinds/sc/system/modules/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- serve ISC development modules compressed, with expires headers -->
+    <servlet-mapping>
+        <servlet-name>FileDownload</servlet-name>
+        <url-pattern>/builtinds/sc/system/development/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- serve skin assets with expires headers -->
+    <servlet-mapping>
+        <servlet-name>FileDownload</servlet-name>
+        <url-pattern>/builtinds/sc/system/reference/skin/*</url-pattern>
+    </servlet-mapping>
+
+    <!--  messaging servlet mapping -->
+    <servlet-mapping>
+        <servlet-name>MessagingServlet</servlet-name>
+        <url-pattern>/builtinds/sc/messaging/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- serve the contents of the helpers/ directory with expires headers -->
+    <servlet-mapping>
+        <servlet-name>FileDownload</servlet-name>
+        <url-pattern>/builtinds/sc/system/helpers/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- General config -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <jsp-config>
+        <!-- Isomorphic JSP tags -->
+        <taglib>
+            <taglib-uri>isomorphic</taglib-uri> 
+            <taglib-location>/WEB-INF/iscTaglib.xml</taglib-location>
+        </taglib>
+    </jsp-config>
+
+    <mime-mapping>
+        <extension>manifest</extension>
+        <mime-type>text/cache-manifest</mime-type>
+    </mime-mapping>
+
+</web-app>

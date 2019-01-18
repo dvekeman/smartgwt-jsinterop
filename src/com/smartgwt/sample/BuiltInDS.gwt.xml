@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.6.1//EN"
+   "http://www.gwtproject.org/doctype/2.6.1/gwt-module.dtd">
+<module rename-to="builtinds">
+    <inherits name='com.google.gwt.user.User'/>
+
+    <inherits name="com.smartgwt.tools.SmartGwtTools"/>
+    <inherits name="com.smartgwtee.tools.Tools"/>
+
+    <!-- Inheriting SmartGwtTools picks up Enterprise resources since the developer console may
+         have some minor functionality issues in other skins, and it will load Enterprise skin
+         if its resources are found.  To have it instead pick up the skin used by this project
+         (which you can change below), substitute:
+
+         <inherits name="com.smartgwt.tools.SmartGwtToolsNoTheme"/>
+
+         For other tools, you may need to inherit specific skin resources, such as tool skins.
+         For example, VisualBuilder needs Tahoe and the took skins, so you may need to add:
+
+         <inherits name="com.smartclient.theme.tahoe.TahoeResources"/>
+         <inherits name="com.smartclientee.toolskin.ToolSkinResources"/>
+         <inherits name="com.smartclientee.toolskinnative.ToolSkinNativeResources"/>
+    -->
+
+    <inherits name="com.smartgwtee.SmartGwtEENoTheme"/>
+
+    <inherits name="com.smartgwt.RealtimeMessaging"/>
+
+    <inherits name="com.smartclient.theme.enterprise.Enterprise"/>
+
+    <!-- Uncomment lines below for GWT Super Dev Mode Support in GWT versions before 2.7.0:
+       - both lines needed for GWT < 2.6, only the first line needed for GWT 2.6.x
+       - see http://www.smartclient.com/docs/release/a/b/c/go.html#group..debugging -->
+    <!-- <add-linker name="xsiframe" />                                             -->
+    <!-- <set-configuration-property name="devModeRedirectEnabled" value="true" />  -->
+
+    <!-- Uncomment lines below for GWT "stack emulation" with file/line number info -->
+    <!-- <set-property               name="compiler.stackMode"  value="emulated" /> -->
+    <!-- <set-configuration-property name="compiler.emulatedStack.recordFileNames"
+                                     value="true" />                                -->
+    <!-- <set-configuration-property name="compiler.emulatedStack.recordLineNumbers"
+                                     value="true" />                                -->
+
+    <!-- Uncomment the lines below in GWT 2.7+ to enable configuring of the path of the module
+         relative to the main HTML page.  By default for our sample projects, the main page is
+         directly in the root (war) directory above the module directory, so the relative
+         path is just the module (directory) name.
+
+         The syntax is <moduleName>=<relative path> as the example binding below illustrates.
+         Multiple bindings can be added to support multiple modules inheriting this module file. 
+    -->
+    <!-- <define-configuration-property name="scriptInjector.pageRelativeModulePath"
+                                        is-multi-valued="true"/> -->
+    <!-- <extend-configuration-property name="scriptInjector.pageRelativeModulePath"
+                                        value="builtinds=builtinds"/> -->
+
+    <!-- Limit permutations -->
+    <set-property name="user.agent" value="safari" />
+
+    <entry-point class='com.smartgwt.sample.client.BuiltInDS'/>
+</module>
