@@ -10,6 +10,8 @@ git checkout solution
 
 The example project comes from the Isomorphic SmartGWT samples projects (and is published here with permission of Isomorphic Software).
 
+![SmartGWT JsInterop](doc/img/smartgwt-jsinterop.png)
+
 ## Introduction
 
 SmartClient and SmartGWT are products by [Isomorphic Software][1]. SmartClient is a UI widget library which can (optionally) be used with a Java-based server allowing to use a single Datasource for both the client and server as well as some built in _Direct Method Invocation_.
