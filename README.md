@@ -10,13 +10,13 @@ git checkout solution
 
 The example project comes from the Isomorphic SmartGWT samples projects (and is published here with permission of Isomorphic Software).
 
-# Introduction
+## Introduction
 
 SmartClient and SmartGWT are products by [Isomorphic Software][1]. SmartClient is a UI widget library which can (optionally) be used with a Java-based server allowing to use a single Datasource for both the client and server as well as some built in _Direct Method Invocation_.
 
 SmartGWT is a [GWT][2] wrapper around the SmartClient technology allowing you to also write the frontend in Java and have (Smart)GWT compile this to JavaScript.
 
-## About GWT
+### About GWT
 
 - May 2006: GWT 1.0 by Google
 - ...
@@ -31,7 +31,7 @@ SmartGWT is a [GWT][2] wrapper around the SmartClient technology allowing you to
 - ???: GWT 3.0
 - Google has moved on (Dart, [J2CL][3], ...)
 
-# SmartGWT/SmartClient
+## SmartGWT/SmartClient
 
 Example
 
@@ -68,7 +68,7 @@ val someLayout = isc.HLayout.create({
 });
 ~~~~~
 
-# JsInterop
+## JsInterop
 
 - **J**ava**S**cript **Interop**erability [GWT JsInterop][4]
 - Goal?
@@ -77,7 +77,7 @@ val someLayout = isc.HLayout.create({
 - Part of GWT
 - Needs an extra flag: `-generateJsInteropExports`
 
-# Tutorial
+## Tutorial
 
 Assuming you have checked out the repository import the project in your favorite IDE (Intellij, Eclipse, Emacs, vim, ...)
 
@@ -109,7 +109,7 @@ Remove/change/tweak this accordingly to your configuration:
 
 Startup the server and ensure everything is running fine (meaning: you see the main `ListGrid` and you can interact with it):
 
-## Part 1. Basic JsInterop: Expose Java types to JavaScript
+### Part 1. Basic JsInterop: Expose Java types to JavaScript
 
 Annotate the FantasyWorld object
 
@@ -184,7 +184,7 @@ world2.name;
  
 ~~~~~
 
-# Part 2: Native methods
+### Part 2: Native methods
 
 Add the following code to `BuiltInDS.java`
 
@@ -288,7 +288,7 @@ public native void addCity(String city);
 
 (note the `addCity` part)
 
-## Part 3: SmartGWT - SmartClient
+### Part 3: SmartGWT - SmartClient
 
 *Goal:* Can we add our `cities` as a new entry in the `ListGrid` (currently Animals, Office Supplies, Employees)
 
@@ -460,7 +460,7 @@ function addCitiesToGrid() {
  
 ~~~~~
 
-# Setup notes for Intellij Ultimate
+## Setup notes for Intellij Ultimate
 
 - File > New > Project (or Module) from existing sources
 - Choose 'Create project from existing sources'
